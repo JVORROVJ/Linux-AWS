@@ -1,0 +1,52 @@
+#!/bin/bash
+#Criar pasta de origem e variavel de ambiente
+echo "Criando pasta de origem"
+echo
+mkdir origem
+echo "Pasta de origem criada"
+echo
+echo "Acessando pasta origem"
+cd origem
+#Criar 3 arquivos novos na pasta de origem
+touch origem1.txt
+echo "teste 1" >> origem1.txt
+touch origem2.txt
+echo "teste 2" >> origem2.txt
+touch origem3.txt
+echo "teste 3" >> origem3.txt
+echo
+echo "Criando variavel de ambiente"
+export caminhoorigem=$(pwd)
+echo
+echo "Saindo da pasta origem"
+cd ..
+#Criar pasta de destino e variavel de ambiente
+echo
+echo "Criando pasta de destino"
+mkdir destino
+echo
+echo "Pasta de destino criada"
+echo
+echo "Acessando pasta destino"
+cd destino
+echo
+echo "Criando variavel de ambiente"
+export caminhodestino=$(pwd)
+echo
+echo "Saindo da pasta destino"
+cd ..
+#Criar arquivo de log
+echo
+echo "Criando arquivo de log"
+echo "$(date) Log iniciado" >> log.log
+#Criar backup usando date, tar e gzip
+cd $caminhoorigem
+echo
+echo "Juntando arquvios para backup"
+export DATA=$(date +'%F-%H%M%S')
+tar -czf backup-$DATA.tar.gz *
+cp -r backup-$DATA.tar.gz "$caminhodestino"
+cd ..
+echo "$(date) Backup realizado com sucesso." >> log.log
+echo
+echo "Backup finalizado"
