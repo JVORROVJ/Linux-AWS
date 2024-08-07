@@ -46,6 +46,7 @@ echo "Juntando arquvios para backup"
 export DATA=$(date +'%F-%H%M%S')
 tar -czf backup-$DATA.tar.gz *
 cp -r backup-$DATA.tar.gz "$caminhodestino"
+rm -rf backup-$DATA.tar.gz
 cd ..
 echo "$(date) Backup realizado com sucesso." >> log.log
 echo
